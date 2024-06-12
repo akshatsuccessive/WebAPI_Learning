@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebAPI_All.Models.DomainModels
-{
+{   
     public class Department
     {
         [Key]
