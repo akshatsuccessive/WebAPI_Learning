@@ -10,6 +10,7 @@ namespace WebAPI_All.Repositories
         private readonly ApplicationDbContext _context;
         private IDepartmentManager departmentManager;
         private IProjectManager projectManager;
+        private IEmployeeManager employeeManager;
         private readonly IMapper _mapper;
         public UnitOfWork(ApplicationDbContext context, IMapper mapper)
         {
@@ -19,6 +20,7 @@ namespace WebAPI_All.Repositories
 
         public IDepartmentManager DepartmentManager => departmentManager ??= new DepartmentManager(_context, _mapper);
         public IProjectManager ProjectManager => projectManager ??= new ProjectManager(_context, _mapper);
+        public IEmployeeManager EmployeeManager => employeeManager ??= new EmployeeManager(_context, _mapper);
         public void Dispose()
         {
             _context.Dispose();

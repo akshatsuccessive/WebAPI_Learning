@@ -6,6 +6,7 @@ namespace WebAPI_All.Repositories
     {
         IDepartmentManager DepartmentManager { get; }
         IProjectManager ProjectManager { get; }
+        IEmployeeManager EmployeeManager { get; }
         Task SaveChanges();
     }
 }

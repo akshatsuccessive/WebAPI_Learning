@@ -26,7 +26,7 @@ namespace WebAPI_All.Repositories.Managers
         public async Task<Project> AddProjectAsync(AddProjectRequest request)
         {
             var project = _mapper.Map<Project>(request);
-            await _context.AddAsync(project);
+            await _context.Projects.AddAsync(project);
             await _context.SaveChangesAsync();
             return project;
         }

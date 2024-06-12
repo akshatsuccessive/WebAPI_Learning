@@ -14,6 +14,10 @@ namespace WebAPI_All.Mapper
             CreateMap<Project, AddProjectRequest>().ReverseMap();
             CreateMap<Project, EditProjectRequest>().ReverseMap();  
             CreateMap<ResponseProject, Project>().ReverseMap();
+
+            CreateMap<Employee, AddEmployeeRequest>().ReverseMap();
+            CreateMap<Employee, EditEmployeeRequest>().ReverseMap();
+            CreateMap<ResponseEmployee, Employee>().ReverseMap();
         }
     }
 }
