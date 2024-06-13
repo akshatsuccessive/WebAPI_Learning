@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using WebAPI_All.Models.DTO;
 using WebAPI_All.Repositories;
 
@@ -17,6 +18,7 @@ namespace WebAPI_All.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("GetAll")]
+        [SwaggerOperation(Summary = "Get all the departments")]
         public async Task<IActionResult> GetAllDepartments()
         {
             var departments = await _unitOfWork.DepartmentManager.GetAllDepartments();
@@ -28,6 +30,7 @@ namespace WebAPI_All.Controllers
         [Consumes("application/json")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [SwaggerOperation(Summary = "Add the department")]
         public async Task<IActionResult> AddDepartment([FromBody] AddDepartmentRequest request)
         {
             if (request == null)
@@ -44,6 +47,7 @@ namespace WebAPI_All.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Get the department by its Id")]
         public async Task<IActionResult> GetDepartmentById([FromRoute] int id)
         {
             if(id <= 0)
@@ -64,6 +68,7 @@ namespace WebAPI_All.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Delete the department by its Id")]
         public async Task<IActionResult> DeleteDepartment([FromRoute] int id)
         {
             if (id <= 0)
@@ -84,6 +89,7 @@ namespace WebAPI_All.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Edit the department by its Id")]
         public async Task<IActionResult> EditDepartment([FromRoute] int id, [FromBody] EditDepartmentRequest request)
         {
             if (id <= 0)

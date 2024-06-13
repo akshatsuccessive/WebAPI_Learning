@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using WebAPI_All.Models.DTO;
 using WebAPI_All.Repositories;
 
@@ -19,6 +20,7 @@ namespace WebAPI_All.Controllers
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Route("GetAll")]
+        [SwaggerOperation(Summary = "Get all the projects")]
         public async Task<IActionResult> GetAllProjects()
         {
             var projects = await _unitOfWork.ProjectManager.GetAllProjects();
@@ -30,6 +32,7 @@ namespace WebAPI_All.Controllers
         [Consumes("application/json")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [SwaggerOperation(Summary = "Add the projects")]
         public async Task<IActionResult> AddProject([FromBody] AddProjectRequest request)
         {
             if (request == null)
@@ -46,6 +49,7 @@ namespace WebAPI_All.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Get the project by its Id")]
         public async Task<IActionResult> GetProjectById([FromRoute] int id)
         {
             if (id <= 0)
@@ -66,6 +70,7 @@ namespace WebAPI_All.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Delete the project by its Id")]
         public async Task<IActionResult> DeleteProject([FromRoute] int id)
         {
             if (id <= 0)
@@ -86,6 +91,7 @@ namespace WebAPI_All.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Edit the project by its Id")]
         public async Task<IActionResult> EditProject([FromRoute] int id, [FromBody] EditProjectRequest request)
         {
             if (id <= 0)

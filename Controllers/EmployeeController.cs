@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAPI_All.Models.DTO;
 using WebAPI_All.Repositories;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace WebAPI_All.Controllers
 {
@@ -17,6 +18,7 @@ namespace WebAPI_All.Controllers
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [SwaggerOperation(Summary = "Get all the employees")]
         [Route("GetAll")]
         public async Task<IActionResult> GetAllEmployees()
         {
@@ -29,6 +31,7 @@ namespace WebAPI_All.Controllers
         [Consumes("application/json")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [SwaggerOperation(Summary = "Add the employee")]
         public async Task<IActionResult> AddProject([FromBody] AddEmployeeRequest request)
         {
             if (request == null)
@@ -45,6 +48,7 @@ namespace WebAPI_All.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Get the employee by its Id")]
         public async Task<IActionResult> GetProjectById([FromRoute] Guid id)
         {
             if (id == Guid.Empty)
@@ -65,6 +69,7 @@ namespace WebAPI_All.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Delete the employee by its Id")]
         public async Task<IActionResult> DeleteProject([FromRoute] Guid id)
         {
             if (id == Guid.Empty)
@@ -85,6 +90,7 @@ namespace WebAPI_All.Controllers
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Edit the employee by its Id")]
         public async Task<IActionResult> EditEmployee([FromRoute] Guid id, [FromBody] EditEmployeeRequest request)
         {
             if (id == Guid.Empty)
