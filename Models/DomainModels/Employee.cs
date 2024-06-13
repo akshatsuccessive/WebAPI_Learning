@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace WebAPI_All.Models.DomainModels
 {
@@ -13,6 +14,7 @@ namespace WebAPI_All.Models.DomainModels
         public string Designation { get; set; } = null!;
         public int DepartmentId { get; set; }
         public Department Departments { get; set; } = null!;
+        [JsonIgnore]
         public virtual ICollection<Project> Projects { get; set; } = null!;
     }
 }

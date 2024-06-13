@@ -17,10 +17,11 @@ namespace WebAPI_All.Repositories.Managers
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Project>> GetAllProjects()
+        public async Task<IEnumerable<ResponseProjectAll>> GetAllProjects()
         {
-            var projects = await _context.Projects.ToListAsync();
-            return projects;
+            var projects = await _context.Projects.Include(x => x.Employees).ToListAsync();
+            var responseProjects = _mapper.Map<IEnumerable<ResponseProjectAll>>(projects);
+            return responseProjects;
         }
 
         public async Task<Project> AddProjectAsync(AddProjectRequest request)
@@ -31,10 +32,11 @@ namespace WebAPI_All.Repositories.Managers
             return project;
         }
 
-        public async Task<Project> GetProject(int id)
+        public async Task<ResponseProjectAll> GetProject(int id)
         {
             var project = await _context.Projects.FirstOrDefaultAsync(x => x.ProjectId == id);
-            return project!;
+            var responseProject = _mapper.Map<ResponseProjectAll>(project);
+            return responseProject!;
         }
 
         public async Task<Project> DeleteProject(int id)

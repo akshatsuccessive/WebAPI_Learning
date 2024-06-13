@@ -91,12 +91,19 @@ namespace WebAPI_All.Controllers
             {
                 return BadRequest();
             }
-            var project = await _unitOfWork.EmployeeManager.EditEmployee(id, request);
-            if (project == null)
+            try
             {
-                return NotFound();
+                var project = await _unitOfWork.EmployeeManager.EditEmployee(id, request);
+                if (project == null)
+                {
+                    return NotFound();
+                }
+                return Ok(project);
             }
-            return Ok(project);
+            catch(Exception ex)
+            {
+                return BadRequest(String.Format("{0} This project is already associated with the Project", ex.Message));
+            }
         }
     }
 }

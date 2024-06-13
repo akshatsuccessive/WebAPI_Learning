@@ -18,10 +18,11 @@ namespace WebAPI_All.Repositories.Managers
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<Department>> GetAllDepartments()
+        public async Task<IEnumerable<ResponseDepartmentAll>> GetAllDepartments()
         {
-            var departments = await _context.Departments.ToListAsync();
-            return departments;
+            var departments = await _context.Departments.Include(x => x.Employees).ToListAsync();
+            var responseDepartments = _mapper.Map<IEnumerable<ResponseDepartmentAll>>(departments);
+            return responseDepartments;
         }
 
         public async Task<Department> AddDepartmentAsync(AddDepartmentRequest request)
@@ -32,10 +33,11 @@ namespace WebAPI_All.Repositories.Managers
             return department;
         }
 
-        public async Task<Department> GetDepartment(int id)
+        public async Task<ResponseDepartmentAll> GetDepartment(int id)
         {
-            var department = await _context.Departments.FirstOrDefaultAsync(x => x.DepartmentId == id);
-            return department!;
+            var department = await _context.Departments.Include(x => x.Employees).FirstOrDefaultAsync(x => x.DepartmentId == id);
+            var responseDepartment = _mapper.Map<ResponseDepartmentAll>(department);
+            return responseDepartment!;
         }
 
         public async Task<Department> DeleteDepartment(int id)
