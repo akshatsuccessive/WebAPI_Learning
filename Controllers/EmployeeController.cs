@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using WebAPI_All.Models.DTO;
 using WebAPI_All.Repositories;
 using Swashbuckle.AspNetCore.Annotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebAPI_All.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class EmployeeController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
