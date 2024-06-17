@@ -10,5 +10,6 @@ namespace WebAPI_All.Repositories.Managers.Interfaces
         Task<Employee> GetEmployee(Guid id);
         Task<Employee> DeleteEmployee(Guid id);
         Task<ResponseEmployee> EditEmployee(Guid id, EditEmployeeRequest request);
+        Task<PagedResponse<Employee>> GetEmployeeList(AddEmployeeListRequest request);
     }
 }

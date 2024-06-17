@@ -49,7 +49,7 @@ namespace WebAPI_All.Controllers
             if(user_ != null)
             {
                 var token = GenerateToken(user_);
-                response = Ok(new { token });
+                response = Ok(token);
             }
             return response;
         }

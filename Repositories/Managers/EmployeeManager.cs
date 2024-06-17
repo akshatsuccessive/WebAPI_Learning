@@ -79,5 +79,38 @@ namespace WebAPI_All.Repositories.Managers
             result.ProjectId = request.ProjectId;
             return result;
         }
+
+        public async Task<PagedResponse<Employee>> GetEmployeeList(AddEmployeeListRequest request)
+        {
+            var query = await _context.Employees.Include(x => x.Departments).Include(x => x.Projects).ToListAsync();
+            if(request.SortOrder.ToLower() == "desc")
+            {
+                query = query.OrderByDescending(e => e.Name).ToList();
+            }
+            else
+            {
+                query = query.OrderBy(e => e.Name).ToList();
+            }
+
+
+            var totalCount = query.Count();
+
+            var employees = query
+                .Skip(request.PageNumber * request.PageSize)
+                .Take(request.PageSize)
+                .ToList();
+
+            var totalPages = (int)Math.Ceiling(totalCount / (double)request.PageSize);
+            var isNextPage = request.PageNumber < totalPages - 1;
+            var isPreviousPage = request.PageNumber > 0;
+
+            return new PagedResponse<Employee>
+            {
+                TotalCount = totalCount,
+                Items = employees,
+                IsNextPage = isNextPage,
+                IsPreviousPage = isPreviousPage
+            };
+        }
     }
 }

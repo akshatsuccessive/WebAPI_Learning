@@ -113,5 +113,18 @@ namespace WebAPI_All.Controllers
                 return BadRequest(String.Format("{0} This project is already associated with the Project", ex.Message));
             }
         }
+
+        [HttpPost]
+        [Route("List")]
+        [Consumes("application/json")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [SwaggerOperation(Summary = "Get the list of employees by pagination")]
+        public async Task<IActionResult> GetEmployeesList([FromQuery] AddEmployeeListRequest request)
+        {
+            var employees = await _unitOfWork.EmployeeManager.GetEmployeeList(request);
+            return Ok(employees);
+        }
     }
 }
