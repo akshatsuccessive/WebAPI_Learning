@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
+using Serilog;
 using WebAPI_All.Data;
 using WebAPI_All.Models.DomainModels;
 using WebAPI_All.Models.DTO;
@@ -20,6 +21,7 @@ namespace WebAPI_All.Repositories.Managers
 
         public async Task<IEnumerable<Employee>> GetAllEmployees()
         {
+            Log.Information("Getting all the employees");
             var employees = await _context.Employees.
                 Include(x => x.Departments).Include(x => x.Projects).
                 ToListAsync();
